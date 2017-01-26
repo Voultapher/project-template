@@ -18,7 +18,6 @@ sed -i.bck -e 's|project: ""|project: "'$Destination'"|' $BT_FILE
 sed -i.bck -e 's|source: ""|source: "'$BT_FILE'"|' $BT_FILE
 
 rm $BT_FILE.bck
-rm $BT_FILE.swp
 
 # configure CMake
 CM_FILE=$Destination/CMakeLists.txt
