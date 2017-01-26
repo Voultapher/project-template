@@ -21,8 +21,9 @@ rm $BT_FILE.bck
 
 # configure CMake
 CM_FILE=$Destination/CMakeLists.txt
-sed -i.bck -e 's|project (PROJECT_NAME)|project ('$ProjectName')|' $CM_FILE
+sed -i.bck -e 's|PN_PLACEHOLDER|'$ProjectName'|' $CM_FILE
 
 rm $CM_FILE.bck
 
 echo 'Created project "'$ProjectName'" at location "'$Destination'"'
+exit 0
