@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ $# != 2 ]; then
-    echo 'Invalid parameter count. Provide "Name" "Destination"'
-    exit -1;
+    printf 'Invalid parameter count. Provide "Name" "Destination"\n'
+    exit 1;
 fi
 
 ProjectName=$1
@@ -25,5 +25,5 @@ sed -i.bck -e 's|PN_PLACEHOLDER|'$ProjectName'|' $CM_FILE
 
 rm $CM_FILE.bck
 
-echo 'Created project "'$ProjectName'" at location "'$Destination'"'
+printf 'Created project "'$ProjectName'" at location "'$Destination'"\n'
 exit 0
