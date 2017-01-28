@@ -44,10 +44,13 @@ test_case "no parameter" "./$ScriptName" 1
 test_case "one parameter" "./$ScriptName 'a'" 1
 test_case "three parameters" "./$ScriptName 'a' 'b' 'c'" 1
 
-cd ${TestDir}/build/
-test_case "cmake" "cmake .." 0
-test_case "build" "make" 0
-test_case "run" "./${TestName}" 0
+cd ${TestDir}/Debug/
+test_case "Debug build" "make" 0
+test_case "Debug run" "./${TestName}" 0
+
+cd ${TestDir}/Debug/
+test_case "Release build" "make" 0
+test_case "Release run" "./${TestName}" 0
 
 cleanup
 

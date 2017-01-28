@@ -6,8 +6,8 @@ providers: [
         {
           project: ""
           source: ""
-          name: "build && run"
-          command: "cd build && make && ./PROJECT_NAME"
+          name: "Release build && run"
+          command: "cd Release && make && ./PROJECT_NAME"
           wd: "."
           env: {}
           modifier:
@@ -37,7 +37,7 @@ providers: [
           project: ""
           source: ""
           name: "build"
-          command: "cd build && make"
+          command: "cd Release && make"
           wd: "."
           env: {}
           modifier:
@@ -66,8 +66,8 @@ providers: [
         {
           project: ""
           source: ""
-          name: "run"
-          command: "cd build && ./PROJECT_NAME"
+          name: "Release run"
+          command: "cd Release && ./PROJECT_NAME"
           wd: "."
           env: {}
           modifier:
@@ -88,6 +88,9 @@ providers: [
               queue_in_buffer: true
               colors: true
               stdin: true
+            linter:
+              no_trace: false
+              immediate: false
           version: 2
         }
       ]

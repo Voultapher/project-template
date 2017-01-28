@@ -25,5 +25,12 @@ sed -i.bck -e 's|PN_PLACEHOLDER|'$ProjectName'|' $CM_FILE
 
 rm $CM_FILE.bck
 
+# Init cmake
+cd $Destination/Debug
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+
+cd $Destination/Release
+cmake -DCMAKE_BUILD_TYPE=Release ..
+
 printf 'Created project "'$ProjectName'" at location "'$Destination'"\n'
 exit 0
