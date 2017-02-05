@@ -36,6 +36,16 @@ function test_case()
     validate_exit_code $3 "$Output"
 }
 
+function clang_comp_test()
+{
+    retval=$(cat .clang_complete)
+    if [ "${retval}" != "-I${TestDir}/include" ]; then
+        printf ".clang_complete content: ${retval}"
+        return 1;
+    fi
+    return 0
+}
+
 cleanup
 
 # Test Cases
@@ -52,7 +62,8 @@ cd ${TestDir}/Release/
 test_case "Release build" "make" 0
 test_case "Release run" "./${TestName}" 0
 
-
+cd ${TestDir}
+test_case "clang_complete" clang_comp_test 0
 
 cleanup
 
