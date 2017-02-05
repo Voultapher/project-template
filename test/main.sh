@@ -48,9 +48,11 @@ cd ${TestDir}/Debug/
 test_case "Debug build" "make" 0
 test_case "Debug run" "./${TestName}" 0
 
-cd ${TestDir}/Debug/
+cd ${TestDir}/Release/
 test_case "Release build" "make" 0
 test_case "Release run" "./${TestName}" 0
+
+
 
 cleanup
 
