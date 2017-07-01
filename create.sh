@@ -27,10 +27,17 @@ rm $CM_FILE.bck
 
 # Init cmake
 cd $Destination/Debug
-cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..
+cmake -G Ninja \
+  -DCMAKE_CXX_COMPILER=clang++ \
+  -DCMAKE_CXX_FLAGS="-Wall -Wextra" \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..
 
 cd $Destination/Release
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..
+cmake -G Ninja \
+  -DCMAKE_CXX_COMPILER=clang++ \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..
 
 printf 'Created project "'$ProjectName'" at location "'$Destination'"\n'
 exit 0

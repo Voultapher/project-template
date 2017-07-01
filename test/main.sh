@@ -33,18 +33,18 @@ function test_case()
 {
     printf "${BLUE}Test${NC}: ${1}\n"
     Output="$($2)"
-    validate_exit_code $3 "$Output"
+    validate_exit_code $3 "${Output}"
 }
 
-function clang_comp_test()
-{
-    retval=$(cat .clang_complete)
-    if [ "${retval}" != "-I${TestDir}/include" ]; then
-        printf ".clang_complete content: ${retval}"
-        return 1;
-    fi
-    return 0
-}
+#function clang_comp_test()
+#{
+#    retval=$(cat .clang_complete)
+#    if [ "${retval}" != "-I${TestDir}/include" ]; then
+#        printf ".clang_complete content: ${retval}"
+#        return 1;
+#    fi
+#    return 0
+#}
 
 cleanup
 
@@ -55,15 +55,17 @@ test_case "one parameter" "./$ScriptName 'a'" 1
 test_case "three parameters" "./$ScriptName 'a' 'b' 'c'" 1
 
 cd ${TestDir}/Debug/
-test_case "Debug build" "make" 0
+test_case "Debug build" "ninja" 0
+cd ${TestDir}/Debug/src/
 test_case "Debug run" "./${TestName}" 0
 
 cd ${TestDir}/Release/
-test_case "Release build" "make" 0
+test_case "Release build" "ninja" 0
+cd ${TestDir}/Release/src/
 test_case "Release run" "./${TestName}" 0
 
-cd ${TestDir}
-test_case "clang_complete" clang_comp_test 0
+#cd ${TestDir}
+#test_case "clang_complete" clang_comp_test 0
 
 cleanup
 
