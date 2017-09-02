@@ -5,13 +5,15 @@ GREEN='\033[1;32m'
 BLUE='\033[1;34m'
 NC='\033[0m' # No Color
 
-ScriptDir=$(readlink -f '../')
-ScriptName='create.sh'
+TestScriptPath=$(readlink -f "${0}")
+TestScriptDir=$(dirname "${TestScriptPath}")
 
-cd $ScriptDir
+ScriptDir=$(readlink -f "${TestScriptDir}/../")
+ScriptName="create.sh"
 
-TestName='PT_Test_Project'
-TestDir=$(readlink -f '../PT_Test_Dir')
+TestName="PT_Test_Project"
+TestDirParent=$(readlink -f "${ScriptDir}/../")
+TestDir="${TestDirParent}/${TestName}"
 
 function cleanup()
 {
@@ -25,7 +27,7 @@ function validate_exit_code()
         printf "${RED}Error${NC}: script returned: $retval expected: $1\n"
         printf "${RED}Output${NC}: ${2}\n"
         cleanup
-        exit -1;
+        exit 1;
     fi
 }
 
@@ -36,23 +38,16 @@ function test_case()
     validate_exit_code $3 "${Output}"
 }
 
-#function clang_comp_test()
-#{
-#    retval=$(cat .clang_complete)
-#    if [ "${retval}" != "-I${TestDir}/include" ]; then
-#        printf ".clang_complete content: ${retval}"
-#        return 1;
-#    fi
-#    return 0
-#}
-
 cleanup
+trap cleanup EXIT
 
 # Test Cases
-test_case "regular script call" "./$ScriptName $TestName $TestDir" 0
-test_case "no parameter" "./$ScriptName" 1
-test_case "one parameter" "./$ScriptName 'a'" 1
-test_case "three parameters" "./$ScriptName 'a' 'b' 'c'" 1
+test_case "regular script call" \
+"${ScriptDir}/${ScriptName} ${TestName} ${TestDirParent}" 0
+
+test_case "no parameter" "${ScriptDir}/${ScriptName}" 1
+test_case "one parameter" "${ScriptDir}/${ScriptName} 'a'" 1
+test_case "three parameters" "${ScriptDir}/${ScriptName} 'a' 'b' 'c'" 1
 
 cd ${TestDir}/Debug/
 test_case "Debug build" "ninja" 0
@@ -64,10 +59,6 @@ test_case "Release build" "ninja" 0
 cd ${TestDir}/Release/src/
 test_case "Release run" "./${TestName}" 0
 
-#cd ${TestDir}
-#test_case "clang_complete" clang_comp_test 0
-
-cleanup
 
 printf "${GREEN}Success${NC}: all tests passed\n"
 exit 0

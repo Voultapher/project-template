@@ -6,10 +6,14 @@ if [ $# != 2 ]; then
 fi
 
 ProjectName=$1
-Destination=$(readlink -f $2)
-Source='template/.'
+DestinationParent=$(readlink -f "${2}")
+Destination="${DestinationParent}/${ProjectName}"
 
-cp -r "${Source}" "${Destination}"
+ScriptDir=$(dirname "${0}")
+Template=$(readlink -f "${ScriptDir}/template")
+
+cp -r "${Template}" "${DestinationParent}"
+mv "${DestinationParent}/template" "${Destination}"
 
 # configure CMake
 CM_FILE="${Destination}/CMakeLists.txt"
@@ -20,5 +24,5 @@ rm $CM_FILE.bck
 # Init cmake
 ${Destination}/configure.sh
 
-printf 'Created project "'$ProjectName'" at location "'${Destination}'"\n'
+printf 'Created project "'${ProjectName}'" at location "'${Destination}'"\n'
 exit 0
