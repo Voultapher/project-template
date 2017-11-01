@@ -5,5 +5,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 target_compile_features(${PROJECT_NAME} PUBLIC
-  cxx_std_14
+  cxx_std_17
 )
