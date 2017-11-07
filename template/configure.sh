@@ -9,7 +9,7 @@ mkdir -p "${SCRIPT_PATH}/Debug"
 cd "${SCRIPT_PATH}/Debug"
 cmake -G Ninja \
   -D CMAKE_CXX_COMPILER=clang++ \
-  -D CMAKE_CXX_FLAGS="-Wall -Wextra -stdlib=libc++ -fno-rtti -fsanitize=address" \
+  -D CMAKE_CXX_FLAGS="-Wall -Wextra -stdlib=libc++ -fno-rtti -fsanitize=address,undefined -fno-omit-frame-pointer" \
   -D CMAKE_BUILD_TYPE=Debug \
   -D CMAKE_EXPORT_COMPILE_COMMANDS=1 ..
 
