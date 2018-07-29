@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set +e
+set -e
 
 SCRIPT_FILE=$(readlink -f ${0})
 SCRIPT_PATH=$(dirname ${SCRIPT_FILE})
