@@ -49,14 +49,14 @@ test_case "no parameter" "${ScriptDir}/${ScriptName}" 1
 test_case "one parameter" "${ScriptDir}/${ScriptName} 'a'" 1
 test_case "three parameters" "${ScriptDir}/${ScriptName} 'a' 'b' 'c'" 1
 
-cd ${TestDir}/Debug/
+cd ${TestDir}/debug/
 test_case "Debug build" "ninja" 0
-cd ${TestDir}/Debug/src/
+cd ${TestDir}/debug/src/
 test_case "Debug run" "./${TestName}" 0
 
-cd ${TestDir}/Release/
+cd ${TestDir}/release/
 test_case "Release build" "ninja" 0
-cd ${TestDir}/Release/src/
+cd ${TestDir}/release/src/
 test_case "Release run" "./${TestName}" 0
 
 
