@@ -28,3 +28,6 @@ cmake -G Ninja \
   -D CMAKE_SHARED_LINKER_FLAGS="-fuse-ld=lld" \
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_EXPORT_COMPILE_COMMANDS=1 ..
+
+# Production hardening
+# -fsanitize=scudo | GWP_ASAN_OPTIONS=SampleRate=500 ./binary
