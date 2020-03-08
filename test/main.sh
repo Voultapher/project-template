@@ -5,14 +5,14 @@ GREEN='\033[1;32m'
 BLUE='\033[1;34m'
 NC='\033[0m' # No Color
 
-TestScriptPath=$(readlink -f "${0}")
+TestScriptPath=$(realpath "${0}")
 TestScriptDir=$(dirname "${TestScriptPath}")
 
-ScriptDir=$(readlink -f "${TestScriptDir}/../")
+ScriptDir=$(realpath "${TestScriptDir}/../")
 ScriptName="create.sh"
 
 TestName="PT_Test_Project"
-TestDirParent=$(readlink -f "${ScriptDir}/../")
+TestDirParent=$(realpath "${ScriptDir}/../")
 TestDir="${TestDirParent}/${TestName}"
 
 function cleanup()

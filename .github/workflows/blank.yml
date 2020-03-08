@@ -19,15 +19,25 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest] # No mac os support rn.
+        os: [ubuntu-latest, macos-latest] # No mac os support rn.
 
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-    - uses: seanmiddleditch/gha-setup-ninja@master
+    - uses: seanmiddleditch/gha-setup-ninja@v1
 
-    # Runs a single command using the runners shell
+    - name: Install dependencies
+      run: |
+        if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            sudo apt install libc++-9-dev libc++abi-9-dev
+        fi
+        if [ "${{ matrix.os }}" = "macos-latest" ]; then
+            brew install coreutils
+
+        fi
+      shell: bash
+
     - name: Test
       run: ./test/main.sh
